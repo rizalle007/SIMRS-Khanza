@@ -60,6 +60,7 @@ import bridging.BPJSMapingDokterDPJP;
 import bridging.BPJSMapingPoli;
 import bridging.BPJSMonitoringKlaim;
 import bridging.BPJSRujukanKeluar;
+import bridging.CoronaDiagnosa;
 import bridging.INACBGCariCoderNIK;
 import bridging.INACBGCoderNIK;
 import bridging.INACBGHybrid;
@@ -1660,7 +1661,7 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnKamarInap);
 
-        btnRanap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/bedroom.png"))); // NOI18N
+        btnRanap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/tindakanranap.png"))); // NOI18N
         btnRanap.setText("Tindakan Ranap");
         btnRanap.setIconTextGap(0);
         btnRanap.setName("btnRanap"); // NOI18N
@@ -6960,7 +6961,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09/04/2020" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16/04/2020" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -16116,6 +16117,19 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         DlgHome.dispose();
         this.setCursor(Cursor.getDefaultCursor());
     }
+    
+    private void btnDiagnosaPasienCoronaActionPerformed(java.awt.event.ActionEvent evt) {
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        CoronaDiagnosa form=new CoronaDiagnosa(this,false);
+        form.isCek();
+        form.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }
+    
     /**
     * @param args the command line arguments
     */
@@ -16712,7 +16726,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             btnSuplierToko,btnJenisToko,btnSetHargaToko,btnBarangToko,btnPenagihanPiutangPasien,btnAkunPenagihanPiutang,btnStokOpnameToko,
             btnRiwayatBarangToko,btnSuratPemesananToko,btnPengajuanBarangToko,btnPenerimaanBarangToko,btnPengadaanBarangToko,btnHutangToko,
             btnBayarPesanToko,btnMemberToko,btnPenjualanToko,btnRegistrasiPoliPerTanggal,btnPiutangToko,btnReturKeSuplierToko,btnReturBarangNonMedis,
-            btnRiwayatBarangNonMedis,btnPasienCorona,btnPendapatanHarianToko;
+            btnRiwayatBarangNonMedis,btnPasienCorona,btnPendapatanHarianToko,btnDiagnosaPasienCorona;
     
     public void isWall(){
         try{            
@@ -18810,6 +18824,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getpasien_corona()==true){
                 Panelmenu.add(btnPasienCorona);
+                jmlmenu++;
+            }
+            
+            if(akses.getdiagnosa_pasien_corona()==true){
+                Panelmenu.add(btnDiagnosaPasienCorona);
                 jmlmenu++;
             } 
         }else if(cmbMenu.getSelectedIndex()==11){ 
@@ -21865,6 +21884,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             Panelmenu.add(btnPasienCorona);
             jmlmenu++;
         } 
+        
+        if(akses.getdiagnosa_pasien_corona()==true){
+            Panelmenu.add(btnDiagnosaPasienCorona);
+            jmlmenu++;
+        }
 
         if(akses.getperusahaan_pasien()==true){
             Panelmenu.add(btnPerusahaan);
@@ -25699,6 +25723,13 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
                 jmlmenu++;
             }                
         }
+        
+        if(akses.getdiagnosa_pasien_corona()==true){
+            if(btnDiagnosaPasienCorona.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnDiagnosaPasienCorona);
+                jmlmenu++;
+            }                
+        }
 
         if(akses.getperusahaan_pasien()==true){
             if(btnPerusahaan.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
@@ -29004,6 +29035,18 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         btnPendapatanHarianToko.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPendapatanHarianTokoActionPerformed(evt);
+            }
+        });
+        
+        btnDiagnosaPasienCorona = new widget.ButtonBig();
+        btnDiagnosaPasienCorona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/iconfinder_Dna-genetics-genomic-strand-virus_5994869.png"))); 
+        btnDiagnosaPasienCorona.setText("Diagnosa Pasien Corona");
+        btnDiagnosaPasienCorona.setIconTextGap(0);
+        btnDiagnosaPasienCorona.setName("btnDiagnosaPasienCorona"); 
+        btnDiagnosaPasienCorona.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnDiagnosaPasienCorona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiagnosaPasienCoronaActionPerformed(evt);
             }
         });
     }
